@@ -2,8 +2,18 @@
   'use strict';
 
   var cvs = document.getElementById('tech-bg-canvas');
-  if (!cvs || typeof THREE === 'undefined') return;
+  if (!cvs) return;
+  if (typeof THREE === 'undefined') {
+    cvs.style.display = 'none';
+    return;
+  }
+  cvs.style.display = 'block';
+  cvs.style.width = '100%';
+  cvs.style.height = '100%';
 
+  var isMobile = window.innerWidth < 768;
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var animEnabled = !reducedMotion;
   var PHASES = 4;
   var phaseW = new Float32Array(PHASES);
   var progress = 0;
@@ -12,6 +22,8 @@
   var scene, cam, renderer, geom, mat, mesh;
   var pipeCol, flowCol;
   var cardEl;
+  var resizeTimer;
+  var contextLost = false;
 
   function rand(a, b) { return a + Math.random() * (b - a); }
   function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
@@ -20,10 +32,11 @@
 
   var R_OUTER = 1.6, R_INNER = 0.95, HALF_LEN = 1.3;
   var CORR_FREQ = 4, CORR_AMP = 0.55;
-  var RINGS = 12, RING_PTS = 80;
-  var LINES = 16, LINE_PTS = 40;
+  var scale = isMobile ? 0.7 : 1;
+  var RINGS = Math.round(12 * scale), RING_PTS = Math.round(80 * scale);
+  var LINES = Math.round(16 * scale), LINE_PTS = Math.round(40 * scale);
   var OUTER_COUNT = RINGS * RING_PTS + LINES * LINE_PTS;
-  var INNER_COUNT = 800;
+  var INNER_COUNT = Math.round(800 * scale);
   var COUNT = OUTER_COUNT + INNER_COUNT;
 
   function pipeR(z) {
@@ -134,11 +147,33 @@
   }
 
   function resize() {
+    if (contextLost || !renderer) return;
     var parent = cvs.parentElement;
-    renderer.setSize(parent.clientWidth, parent.clientHeight, false);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    cam.aspect = parent.clientWidth / parent.clientHeight;
+    var w = parent.clientWidth, h = parent.clientHeight;
+    if (w === 0 || h === 0) {
+      cvs.style.display = 'block';
+      cvs.width = window.innerWidth;
+      cvs.height = window.innerHeight;
+      w = window.innerWidth;
+      h = window.innerHeight;
+    }
+    renderer.setSize(w, h, false);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
+    cam.aspect = w / h;
     cam.updateProjectionMatrix();
+  }
+
+  function debouncedResize() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      var wasMobile = isMobile;
+      isMobile = window.innerWidth < 768;
+      if (wasMobile !== isMobile) {
+        location.reload();
+        return;
+      }
+      resize();
+    }, 200);
   }
 
   function readScroll() {
@@ -150,14 +185,31 @@
   }
 
   function init() {
+    if (!animEnabled) {
+      cvs.style.display = 'none';
+      var pbar = document.getElementById('tech-progress');
+      if (pbar) pbar.style.display = 'none';
+      return;
+    }
+
     scene = new THREE.Scene();
 
     cam = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
-    cam.position.set(-4, 1.8, 3.5);
+    cam.position.set(isMobile ? -3.2 : -4, isMobile ? 1.4 : 1.8, isMobile ? 3 : 3.5);
     cam.lookAt(0, 0, 0);
 
-    renderer = new THREE.WebGLRenderer({ canvas: cvs, alpha: false, antialias: true });
+    renderer = new THREE.WebGLRenderer({ canvas: cvs, alpha: false, antialias: !isMobile });
     renderer.setClearColor(0x000000, 1);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
+
+    cvs.addEventListener('webglcontextlost', function (e) {
+      e.preventDefault();
+      contextLost = true;
+    });
+    cvs.addEventListener('webglcontextrestored', function () {
+      contextLost = false;
+      init();
+    });
 
     pipeCol = new Float32Array(COUNT * 3);
     flowCol = new Float32Array(COUNT * 3);
@@ -170,7 +222,7 @@
       pipeCol[i * 3] = c.r; pipeCol[i * 3 + 1] = c.g; pipeCol[i * 3 + 2] = c.b;
       c = c3.clone().lerp(c4, t * 0.7);
       flowCol[i * 3] = c.r; flowCol[i * 3 + 1] = c.g; flowCol[i * 3 + 2] = c.b;
-      sizes[i] = rand(0.035, 0.065);
+      sizes[i] = rand(isMobile ? 0.04 : 0.035, isMobile ? 0.07 : 0.065);
     }
 
     geom = new THREE.BufferGeometry();
@@ -179,7 +231,7 @@
     geom.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
 
     mat = new THREE.PointsMaterial({
-      size: 0.06, vertexColors: true, transparent: true, opacity: 0.9,
+      size: isMobile ? 0.08 : 0.06, vertexColors: true, transparent: true, opacity: 0.9,
       blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true,
     });
 
@@ -189,12 +241,14 @@
     cardEl = document.querySelector('#technology .tech-part1');
 
     resize();
-    window.addEventListener('resize', resize);
+    window.addEventListener('resize', debouncedResize);
     animate();
   }
 
   function animate(time) {
     requestAnimationFrame(animate);
+
+    if (!animEnabled || contextLost || !mesh) return;
 
     var dt = lastT ? (time - lastT) / 1000 : 0.016;
     lastT = time;
@@ -246,12 +300,27 @@
       var rect = cardEl.getBoundingClientRect();
       var vh = window.innerHeight;
       var cardProgress = clamp(1 - (rect.top + rect.height * 0.3) / vh, 0, 1);
-      var shift = smoothstep(0, 0.7, cardProgress) * 3.5;
+      var shift = smoothstep(0, 0.7, cardProgress) * (isMobile ? 2.5 : 3.5);
       mesh.position.x = lerp(mesh.position.x, shift, Math.min(1, dt * 3));
     }
 
     renderer.render(scene, cam);
   }
+
+  window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', function (e) {
+    if (e.matches) {
+      animEnabled = false;
+      if (cvs) cvs.style.display = 'none';
+      var pbar = document.getElementById('tech-progress');
+      if (pbar) pbar.style.display = 'none';
+    } else {
+      animEnabled = true;
+      if (cvs) cvs.style.display = 'block';
+      var pbar = document.getElementById('tech-progress');
+      if (pbar) pbar.style.display = '';
+      if (!mesh) init();
+    }
+  });
 
   if (typeof THREE !== 'undefined') { init(); }
   else {
