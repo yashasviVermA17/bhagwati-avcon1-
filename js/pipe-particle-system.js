@@ -33,10 +33,10 @@
   var R_OUTER = 1.6, R_INNER = 0.95, HALF_LEN = 1.3;
   var CORR_FREQ = 4, CORR_AMP = 0.55;
   var scale = isMobile ? 0.7 : 1;
-  var RINGS = Math.round(12 * scale), RING_PTS = Math.round(80 * scale);
-  var LINES = Math.round(16 * scale), LINE_PTS = Math.round(40 * scale);
+  var RINGS = Math.round(18 * scale), RING_PTS = Math.round(110 * scale);
+  var LINES = Math.round(22 * scale), LINE_PTS = Math.round(56 * scale);
   var OUTER_COUNT = RINGS * RING_PTS + LINES * LINE_PTS;
-  var INNER_COUNT = Math.round(800 * scale);
+  var INNER_COUNT = Math.round(1300 * scale);
   var COUNT = OUTER_COUNT + INNER_COUNT;
 
   function pipeR(z) {
@@ -71,11 +71,39 @@
 
   function genInner() {
     var arr = new Float32Array(INNER_COUNT * 3);
-    for (var i = 0; i < INNER_COUNT; i++) {
-      var ang = rand(0, Math.PI * 2), z = rand(-HALF_LEN, HALF_LEN);
-      arr[i * 3] = Math.cos(ang) * R_INNER;
-      arr[i * 3 + 1] = Math.sin(ang) * R_INNER;
-      arr[i * 3 + 2] = z;
+    var ringCount = Math.max(8, Math.round(10 * scale));
+    var ringPts = Math.max(24, Math.floor((INNER_COUNT * 0.72) / ringCount));
+    var ringTotal = Math.min(INNER_COUNT, ringCount * ringPts);
+    var lineCount = Math.max(8, Math.round(12 * scale));
+    var linePts = Math.max(12, Math.floor((INNER_COUNT - ringTotal) / lineCount));
+    var idx = 0;
+    for (var r = 0; r < ringCount && idx < ringTotal; r++) {
+      var z = -HALF_LEN + (r / (ringCount - 1)) * HALF_LEN * 2;
+      for (var j = 0; j < ringPts && idx < ringTotal; j++) {
+        var ang = (j / ringPts) * Math.PI * 2;
+        arr[idx * 3] = Math.cos(ang) * R_INNER;
+        arr[idx * 3 + 1] = Math.sin(ang) * R_INNER;
+        arr[idx * 3 + 2] = z;
+        idx++;
+      }
+    }
+    for (var l = 0; l < lineCount && idx < INNER_COUNT; l++) {
+      var lineAng = (l / lineCount) * Math.PI * 2;
+      for (var k = 0; k < linePts && idx < INNER_COUNT; k++) {
+        var lineZ = -HALF_LEN + (k / (linePts - 1)) * HALF_LEN * 2;
+        arr[idx * 3] = Math.cos(lineAng) * R_INNER;
+        arr[idx * 3 + 1] = Math.sin(lineAng) * R_INNER;
+        arr[idx * 3 + 2] = lineZ;
+        idx++;
+      }
+    }
+    while (idx < INNER_COUNT) {
+      var fillAng = (idx / INNER_COUNT) * Math.PI * 2;
+      var fillZ = -HALF_LEN + ((idx % ringCount) / (ringCount - 1)) * HALF_LEN * 2;
+      arr[idx * 3] = Math.cos(fillAng) * R_INNER;
+      arr[idx * 3 + 1] = Math.sin(fillAng) * R_INNER;
+      arr[idx * 3 + 2] = fillZ;
+      idx++;
     }
     return arr;
   }
@@ -98,7 +126,7 @@
   targets.push((function () {
     var arr = new Float32Array(COUNT * 3);
     for (var i = 0; i < COUNT; i++) {
-      var theta = rand(0, Math.PI * 2), phi = Math.acos(rand(-1, 1)), r = rand(0.5, 3.5);
+      var theta = rand(0, Math.PI * 2), phi = Math.acos(rand(-1, 1)), r = rand(0.4, 2.4);
       arr[i * 3] = r * Math.sin(phi) * Math.cos(theta);
       arr[i * 3 + 1] = r * Math.cos(phi);
       arr[i * 3 + 2] = r * Math.sin(phi) * Math.sin(theta);
