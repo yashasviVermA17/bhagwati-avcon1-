@@ -32,11 +32,12 @@
 
   var R_OUTER = 1.6, R_INNER = 0.95, HALF_LEN = 1.3;
   var CORR_FREQ = 4, CORR_AMP = 0.55;
-  var scale = isMobile ? 0.7 : 1;
-  var RINGS = Math.round(18 * scale), RING_PTS = Math.round(110 * scale);
-  var LINES = Math.round(22 * scale), LINE_PTS = Math.round(56 * scale);
+  var scale = isMobile ? 1.25 : 1.7;
+  var particleBoost = 2;
+  var RINGS = Math.round(32 * scale * particleBoost), RING_PTS = Math.round(190 * scale * particleBoost);
+  var LINES = Math.round(46 * scale * particleBoost), LINE_PTS = Math.round(100 * scale * particleBoost);
   var OUTER_COUNT = RINGS * RING_PTS + LINES * LINE_PTS;
-  var INNER_COUNT = Math.round(1300 * scale);
+  var INNER_COUNT = Math.round(3800 * scale * particleBoost);
   var COUNT = OUTER_COUNT + INNER_COUNT;
 
   function pipeR(z) {
@@ -120,6 +121,37 @@
     return arr;
   }
 
+  function buildSquarePhase(outerArr, innerArr) {
+    var arr = new Float32Array(COUNT * 3);
+    for (var i = 0; i < OUTER_COUNT; i++) {
+      var i3 = i * 3;
+      var x = outerArr[i3];
+      var y = outerArr[i3 + 1];
+      var z = outerArr[i3 + 2];
+      var ang = Math.atan2(y, x);
+      var r = Math.sqrt(x * x + y * y);
+      var boxX = Math.sign(Math.cos(ang)) * Math.pow(Math.abs(Math.cos(ang)), 0.78);
+      var boxY = Math.sign(Math.sin(ang)) * Math.pow(Math.abs(Math.sin(ang)), 0.78);
+      arr[i3] = boxX * r * 1.04;
+      arr[i3 + 1] = boxY * r * 1.04;
+      arr[i3 + 2] = z + Math.sin(ang * 6) * 0.06;
+    }
+    for (var i = 0; i < INNER_COUNT; i++) {
+      var i3 = (OUTER_COUNT + i) * 3;
+      var x = innerArr[i * 3];
+      var y = innerArr[i * 3 + 1];
+      var z = innerArr[i * 3 + 2];
+      var ang = Math.atan2(y, x);
+      var r = Math.sqrt(x * x + y * y);
+      var boxX = Math.sign(Math.cos(ang)) * Math.pow(Math.abs(Math.cos(ang)), 0.78);
+      var boxY = Math.sign(Math.sin(ang)) * Math.pow(Math.abs(Math.sin(ang)), 0.78);
+      arr[i3] = boxX * r * 1.03;
+      arr[i3 + 1] = boxY * r * 1.03;
+      arr[i3 + 2] = z + Math.sin(ang * 8) * 0.08;
+    }
+    return arr;
+  }
+
   var targets = [];
   var inner = genInner();
 
@@ -153,16 +185,7 @@
   (function () {
     var outer = genGrid(false);
     var flow = genHelix(INNER_COUNT, 1.3, 8, 4.5);
-    var arr = new Float32Array(COUNT * 3);
-    for (var i = 0; i < OUTER_COUNT; i++) {
-      arr[i * 3] = outer[i * 3]; arr[i * 3 + 1] = outer[i * 3 + 1]; arr[i * 3 + 2] = outer[i * 3 + 2];
-    }
-    for (var i = 0; i < INNER_COUNT; i++) {
-      arr[(OUTER_COUNT + i) * 3] = flow[i * 3];
-      arr[(OUTER_COUNT + i) * 3 + 1] = flow[i * 3 + 1];
-      arr[(OUTER_COUNT + i) * 3 + 2] = flow[i * 3 + 2];
-    }
-    targets.push(arr);
+    targets.push(buildSquarePhase(outer, flow));
   })();
 
   function calcWeights(p) {
@@ -250,7 +273,7 @@
       pipeCol[i * 3] = c.r; pipeCol[i * 3 + 1] = c.g; pipeCol[i * 3 + 2] = c.b;
       c = c3.clone().lerp(c4, t * 0.7);
       flowCol[i * 3] = c.r; flowCol[i * 3 + 1] = c.g; flowCol[i * 3 + 2] = c.b;
-      sizes[i] = rand(isMobile ? 0.04 : 0.035, isMobile ? 0.07 : 0.065);
+      sizes[i] = rand(isMobile ? 0.009 : 0.007, isMobile ? 0.018 : 0.014);
     }
 
     geom = new THREE.BufferGeometry();
@@ -259,7 +282,7 @@
     geom.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
 
     mat = new THREE.PointsMaterial({
-      size: isMobile ? 0.08 : 0.06, vertexColors: true, transparent: true, opacity: 0.9,
+      size: isMobile ? 0.026 : 0.02, vertexColors: true, transparent: true, opacity: 1,
       blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true,
     });
 
@@ -300,12 +323,18 @@
         if (w > 0) { x += targets[p][i3] * w; y += targets[p][i3 + 1] * w; z += targets[p][i3 + 2] * w; }
       }
 
-      if (phaseW[3] > 0.01 && i >= OUTER_COUNT) {
-        var a = flowAngle + (i - OUTER_COUNT) * 0.005;
+      if (phaseW[3] > 0.001) {
+        var a = flowAngle + i * 0.004;
         var ca = Math.cos(a), sa = Math.sin(a), bx = x, by = y;
         x = bx * ca - by * sa;
         y = bx * sa + by * ca;
-        z += Math.sin(flowAngle + i * 0.02) * 0.3 * phaseW[3];
+
+        var squareAmount = phaseW[3] * 0.55;
+        var boxX = Math.sign(Math.cos(a * 0.8)) * Math.pow(Math.abs(Math.cos(a * 0.8)), 0.8);
+        var boxY = Math.sign(Math.sin(a * 0.8)) * Math.pow(Math.abs(Math.sin(a * 0.8)), 0.8);
+        x = x * (1 - 0.08 * squareAmount) + boxX * 0.16 * squareAmount;
+        y = y * (1 - 0.08 * squareAmount) + boxY * 0.16 * squareAmount;
+        z += Math.sin(flowAngle * 1.2 + i * 0.012) * 0.14 * squareAmount;
       }
 
       pos[i3] = x; pos[i3 + 1] = y; pos[i3 + 2] = z;
