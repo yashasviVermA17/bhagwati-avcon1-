@@ -29,7 +29,8 @@ header[style*="calc(100vw"]{width:100%!important}
 body{overflow-x:hidden!important;width:100%!important;margin:0!important;padding:0!important;white-space:normal!important}
 html{margin:0!important;padding:0!important}
 img,video{max-width:100%}
-#specifications .marquee-track li{display:flex;align-items:center;justify-content:center;background-color:#f5f3f2}
+#specifications .marquee-track li{display:flex;align-items:center;justify-content:center;background-color:#f5f3f2;flex:0 0 auto;max-width:100%;width:clamp(220px,24vw,320px);height:clamp(180px,26vw,424px)}
+#specifications .marquee-track li[style*="height: 424px"]{height:clamp(180px,26vw,424px)!important}
 #specifications .marquee-track picture{display:block;width:100%;height:100%}
 #specifications .marquee-track img{display:block;width:100%;height:100%;min-width:100%;min-height:100%;object-fit:cover;object-position:center;background-color:#f5f3f2}
 .marquee-wrapper{overflow:hidden!important}
@@ -41,7 +42,7 @@ img,video{max-width:100%}
 .ns-about-content{flex-direction:column!important}
 .ns-about-left{max-width:100%!important}
 .ns-about{padding:48px 1rem!important}
-#specifications li[style*="height:424px"]{height:clamp(180px,60vw,424px)!important}
+#specifications .marquee-track li{width:min(78vw,260px);height:clamp(180px,58vw,240px)}
 .tech-intro h2{font-size:clamp(24px,6vw,60px)!important;padding:1rem;text-align:center}
 .tech-part1{align-items:flex-start!important;padding-top:1rem}
 .tech-part1 .pr-28{padding-right:0!important}
@@ -56,6 +57,9 @@ img,video{max-width:100%}
 }
 @media(max-width:1023px){
 .tech-intro h2{font-size:clamp(24px,5vw,60px)!important}
+}
+@media(max-width:480px){
+#specifications .marquee-track li{width:min(72vw,220px);height:clamp(150px,60vw,200px)}
 }
 @media(min-width:1024px){
 #technology .tech-part1 > div{max-width:52%!important;margin-left:40px}
