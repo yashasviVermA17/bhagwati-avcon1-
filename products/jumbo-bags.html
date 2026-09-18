@@ -3,94 +3,399 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jumbo Bags (FIBC) — Bhagwati Avcon</title>
-<meta name="description" content="Jumbo bags (FIBC bulk bags) for heavy-duty industrial and agricultural packaging. Manufactured by Bhagwati Avcon, Nagpur.">
-<link rel="stylesheet" href="../css/product.css">
+<title>Jumbo PP Bags (FIBC) — Bhagwati Avcon</title>
+<meta name="description" content="Heavy-duty FIBC jumbo bags for bulk storage and transport of chemicals, agro products and industrial materials. Manufactured by Bhagwati Avcon.">
+<link rel="icon" type="image/png" href="../images/icon-favicon.png">
+<style>
+  :root{
+    --bg:#ffffff;
+    --paper:#f7f7f5;
+    --ink:#141414;
+    --ink-2:#63635f;
+    --line:#e7e7e2;
+    --accent:#f0701e;
+    --radius:18px;
+    --shadow:0 10px 30px -12px rgba(16,18,22,.12);
+    --max:1280px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Inter","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{display:block;max-width:100%}
+  .container{max-width:none;width:100%;margin:0;padding:0 clamp(20px,3vw,44px)}
+  section{padding:76px 0}
+
+  /* brand strip */
+  .brand{display:flex;align-items:center;gap:12px;padding:26px 0 8px}
+  .brand img{width:34px;height:34px;border-radius:9px;object-fit:cover}
+  .brand-name{font-size:15px;font-weight:700;letter-spacing:-.01em}
+  .brand-meta{margin-left:auto;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2)}
+
+  /* eyebrow + headings */
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:9px;
+    font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--ink);
+  }
+  .eyebrow::before{content:"";width:22px;height:2px;background:var(--accent);border-radius:2px}
+  .h2{font-size:clamp(24px,2.9vw,36px);font-weight:700;letter-spacing:-.025em;line-height:1.15;margin:14px 0 0}
+  .lead{color:var(--ink-2);font-size:15.5px;max-width:620px;margin-top:14px}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:#fff;
+    padding:13px 24px;border-radius:9px;font-size:14.5px;font-weight:600;letter-spacing:.01em;
+    text-decoration:none;border:1px solid var(--ink);transition:background .25s,border-color .25s;
+  }
+  .btn svg{transition:transform .25s}
+  .btn:hover{background:#000}
+  .btn:hover svg{transform:translateX(4px)}
+  .img-cover{width:100%;height:100%;object-fit:cover}
+
+  /* 1. HERO — compact editorial panel */
+  .hero{padding:18px 0 4px}
+  .hero-panel{
+    background:var(--paper);border:1px solid var(--line);border-radius:24px;
+    display:grid;grid-template-columns:1.02fr .98fr;align-items:center;gap:56px;
+    padding:54px 56px;min-height:420px;
+  }
+  .hero-eyebrow{
+    display:inline-flex;align-items:center;gap:9px;
+    font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--ink);
+  }
+  .hero-eyebrow::before{content:"";width:22px;height:2px;background:var(--accent);border-radius:2px}
+  .hero h1{font-size:clamp(32px,3.8vw,52px);font-weight:800;letter-spacing:-.03em;line-height:1.05;margin:18px 0 0}
+  .hero p{margin:18px 0 30px;color:var(--ink-2);font-size:15.5px;max-width:480px}
+  .hero-fig{
+    position:relative;height:360px;border-radius:16px;overflow:hidden;
+    box-shadow:var(--shadow);border:1px solid var(--line);
+  }
+  .hero-fig img{width:100%;height:100%;object-fit:cover}
+
+  /* 2. ABOUT */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .feats{display:grid;grid-template-columns:1fr;gap:14px;margin-top:30px}
+  .feat{display:flex;gap:14px;align-items:center;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:#fff}
+  .feat-ic{width:40px;height:40px;flex-shrink:0;border-radius:10px;background:var(--paper);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--ink)}
+  .feat h4{font-size:14.5px;font-weight:600;letter-spacing:-.01em}
+  .feat p{font-size:13px;color:var(--ink-2);margin-top:1px}
+  .collage{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:14px;height:520px}
+  .col{border-radius:16px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line)}
+  .col img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .col:hover img{transform:scale(1.045)}
+  .col.tall{grid-row:span 2}
+
+  /* 3. WHY */
+  .why{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .wgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+  .wcard{
+    position:relative;background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:26px 24px;box-shadow:0 3px 14px rgba(16,18,22,.04);
+    transition:transform .3s,box-shadow .3s,border-color .3s;
+  }
+  .wcard:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:#d9d9d3}
+  .wnum{position:absolute;top:22px;right:24px;font-size:13px;font-weight:700;letter-spacing:.08em;color:#c9c9c2}
+  .wic{width:42px;height:42px;border-radius:10px;background:var(--paper);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--ink);margin-bottom:16px}
+  .wcard h4{font-size:15px;font-weight:600;letter-spacing:-.01em}
+  .wcard p{font-size:13px;color:var(--ink-2);margin-top:6px}
+
+  /* 4. APPLICATIONS */
+  .apps-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .apps{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:40px}
+  .acard{
+    position:relative;border-radius:16px;overflow:hidden;min-height:300px;box-shadow:var(--shadow);border:1px solid var(--line);
+    display:flex;flex-direction:column;justify-content:flex-end;
+  }
+  .acard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .acard:hover img{transform:scale(1.05)}
+  .acard::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,12,14,0) 30%,rgba(10,12,14,.8))}
+  .abody{position:relative;z-index:2;padding:18px}
+  .aic{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+  .abody h4{font-size:15px;font-weight:600;letter-spacing:-.01em;color:#fff}
+  .abody p{font-size:12.5px;color:rgba(255,255,255,.82);margin-top:4px}
+
+  /* 5. SPECS */
+  .specs{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .stable{display:grid;grid-template-columns:1fr 1fr;margin-top:38px;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 3px 14px rgba(16,18,22,.04)}
+  .scol{display:flex;flex-direction:column}
+  .scol+.scol{border-left:1px solid var(--line)}
+  .srow{display:flex;gap:24px;padding:18px 24px;border-bottom:1px solid var(--line)}
+  .srow:last-child{border-bottom:none}
+  .skey{width:130px;flex-shrink:0;font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);padding-top:2px}
+  .sval{font-size:14.5px;color:var(--ink-2)}
+
+  /* 6. GALLERY */
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:38px}
+  .gitem{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:4/3.4;box-shadow:0 3px 14px rgba(16,18,22,.05);border:1px solid var(--line)}
+  .gitem img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .gitem:hover img{transform:scale(1.055)}
+
+  /* 7. CTA strip */
+  .cta-wrap{padding-bottom:76px}
+  .cta{
+    background:var(--paper);border:1px solid var(--line);border-radius:18px;
+    padding:36px 40px;display:flex;align-items:center;justify-content:space-between;gap:34px;
+    box-shadow:0 3px 14px rgba(16,18,22,.04);
+  }
+  .cta-l{display:flex;gap:20px;align-items:flex-start}
+  .cta-ic{width:50px;height:50px;flex-shrink:0;border-radius:12px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--ink)}
+  .cta h3{font-size:clamp(18px,2vw,24px);font-weight:700;letter-spacing:-.02em}
+  .cta p{color:var(--ink-2);font-size:14px;margin-top:5px;max-width:480px}
+  .cta .btn{flex-shrink:0}
+
+  @media(max-width:1080px){.apps{grid-template-columns:repeat(3,1fr)}.hero-panel{padding:44px 40px;gap:40px}}
+  @media(max-width:900px){
+    section{padding:60px 0}
+    .hero-panel{grid-template-columns:1fr;padding:36px;min-height:0}
+    .hero-fig{height:380px;order:2}
+    .about-grid{grid-template-columns:1fr;gap:44px}
+    .collage{height:480px}
+    .wgrid{grid-template-columns:1fr 1fr}
+    .stable{grid-template-columns:1fr}
+    .scol+.scol{border-left:none;border-top:1px solid var(--line)}
+    .gallery{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:760px){
+    .apps{display:flex;overflow-x:auto;gap:14px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+    .acard{flex:0 0 74%;min-height:280px;scroll-snap-align:start}
+    .cta{flex-direction:column;align-items:flex-start;padding:30px 26px}
+  }
+  @media(max-width:560px){
+    .container{padding:0 20px}
+    section{padding:52px 0}
+    .wgrid{grid-template-columns:1fr}
+    .gallery{display:flex;overflow-x:auto;gap:14px;scroll-snap-type:x mandatory}
+    .gitem{flex:0 0 78%;aspect-ratio:3/3.2;scroll-snap-align:start}
+    .srow{flex-direction:column;gap:6px;padding:16px 20px}
+    .skey{width:auto}
+    .brand-meta{display:none}
+  }
+
+  /* ===== main-site footer (index.html) ===== */
+  .ba-footer{background:#0f131a;color:#e5e5e5;overflow:hidden}.ba-footer-marquee{border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);overflow:hidden;padding:24px 0}.ba-footer-marquee-track{display:flex;white-space:nowrap;will-change:transform;animation:ba-marquee 35s linear infinite;gap:0}.ba-footer-marquee-item{font-size:28px;font-weight:500;letter-spacing:-.02em;padding:0 24px;flex-shrink:0;color:rgba(255,255,255,.5)}@keyframes ba-marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}.ba-footer-content{padding:64px 24px 40px;width:100%;max-width:none}.ba-footer-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1.2fr;gap:40px}@media(max-width:991px){.ba-footer-grid{grid-template-columns:1fr 1fr;gap:32px}}@media(max-width:639px){.ba-footer-grid{grid-template-columns:1fr;gap:28px}}.ba-footer-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:16px}.ba-footer-text{font-size:14px;line-height:1.7;color:rgba(255,255,255,.7);margin-bottom:12px}.ba-footer-sub-links{display:flex;flex-direction:column;gap:8px}.ba-footer-link{font-size:14px;color:rgba(255,255,255,.7);text-decoration:none;transition:color .3s;display:inline-block;width:fit-content}.ba-footer-link:hover{color:#fff}.ba-footer-links{display:flex;flex-direction:column;gap:10px}.ba-footer-newsletter{max-width:320px}.ba-footer-form{display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:8px;margin-bottom:8px}.ba-footer-input{flex:1;background:transparent;border:none;color:#fff;font-size:14px;outline:none;padding:4px 0}.ba-footer-input::placeholder{color:rgba(255,255,255,.35)}.ba-footer-btn{background:transparent;border:none;color:rgba(255,255,255,.5);cursor:pointer;padding:4px 0 4px 12px;transition:color .3s}.ba-footer-btn:hover{color:#fff}.ba-footer-note{font-size:12px;color:rgba(255,255,255,.35)}.ba-footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;max-width:1200px;margin:0 auto}@media(max-width:639px){.ba-footer-bottom{flex-direction:column;text-align:center}}.ba-footer-bottom-inner{display:flex;align-items:center;gap:24px;flex-wrap:wrap}.ba-footer-brand{font-size:15px;font-weight:600;letter-spacing:-.01em;color:#fff}.ba-footer-social{display:flex;gap:16px;align-items:center}.ba-footer-social-link{color:rgba(255,255,255,.4);transition:color .3s;display:flex;align-items:center}.ba-footer-social-link:hover{color:#fff}.ba-footer-copy{font-size:12px;color:rgba(255,255,255,.35)}
+</style>
 </head>
 <body>
 
-<header class="topbar">
-  <div class="brand"><a href="../index.html"><img src="../images/icon.jpeg" alt="Bhagwati Avcon logo">Bhagwati Avcon</a></div>
-  <nav class="links">
-    <a href="../index.html">Home</a>
-    <a href="index.html">Products</a>
-    <a href="pp-woven-bags.html">PP Woven Bags</a>
-    <a href="jumbo-bags.html" aria-current="page">Jumbo Bags</a>
-    <a href="../index.html#get-in-touch">Contact</a>
-  </nav>
-</header>
-
-<section class="hero">
-  <div class="wrap">
-    <div class="breadcrumb"><a href="index.html">Products</a> &rsaquo; <a href="pp-woven-bags.html">PP Woven Bags</a> &rsaquo; Jumbo Bags</div>
-    <div class="kicker">Jumbo Bags</div>
-    <h1>FIBC Bulk Bags Built for Heavy Loads</h1>
-    <p>Our jumbo bag line handles high-volume industrial and agricultural packaging — strong FIBC construction engineered for safe bulk handling.</p>
-    <a class="cta" href="../index.html#get-in-touch">Request a Quote</a>
+  <!-- brand strip -->
+  <div class="container">
+    <div class="brand">
+      <img src="../images/icon.jpeg" alt="Bhagwati Avcon logo">
+      <span class="brand-name">Bhagwati Avcon</span>
+      <span class="brand-meta">Jumbo PP Bags</span>
+    </div>
   </div>
-</section>
 
-<section class="white" id="jumbo">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Jumbo Bags</div>
-      <h2>FIBC Bulk Bags for Heavy-Duty Loads</h2>
-    </div>
-    <div class="gallery cols-2">
-      <div class="placeholder">Jumbo (FIBC) Bag Photo<br><b>Pending client asset</b></div>
-      <div class="placeholder">Jumbo (FIBC) Bag Photo<br><b>Pending client asset</b></div>
-    </div>
-    <div class="grid cols-3" style="margin-top:34px">
-      <div class="app-item"><h3>Bulk Storage</h3><p>High-capacity FIBC bags for grains, seeds and produce.</p></div>
-      <div class="app-item"><h3>Industrial Use</h3><p>Heavy-load bags for aggregates, minerals and granules.</p></div>
-      <div class="app-item"><h3>Safe Handling</h3><p>Strong lifting loops and reinforced construction.</p></div>
-    </div>
-    <div class="pending">PENDING: Detailed specifications (capacity, fabric weight, liner and handling options) to be confirmed by the client.</div>
-  </div>
-</section>
-
-<footer>
-  <div class="foot">
-    <div>
-      <h4>Bhagwati Avcon</h4>
-      <p class="f-desc">Manufacturer of PP woven bags, HDPE pipes, DWC pipes and plastic pipe fittings — packaging and pipeline solutions from Nagpur, Maharashtra.</p>
-      <div class="social">
-        <a href="https://www.facebook.com/profile.php?id=61584676199506" target="_blank" rel="noopener" aria-label="Facebook"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12S0 5.446 0 12.073c0 5.989 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
-        <a href="https://www.instagram.com/bhagwati_avcon?igsi=azlocm9pM3N4NHZh" target="_blank" rel="noopener" aria-label="Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
-        <a href="https://www.linkedin.com/company/bhagwati-avco/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
-        <a href="https://wa.me/917303137035" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.019-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+  <!-- 1. HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-panel">
+        <div>
+          <span class="hero-eyebrow">Our Products</span>
+          <h1>Jumbo PP Bags (FIBC) for Bulk Packaging Needs</h1>
+          <p>Heavy-duty FIBC jumbo bulk bags built for high-capacity storage and transport of chemicals, agro products, fertilizers and construction materials. Strong, space-saving and customizable to your exact load and handling requirements.</p>
+          <a class="btn" href="../index.html#get-in-touch">Request a Quote
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M2 8h11M9 3.5 13.5 8 9 12.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+        <div class="hero-fig">
+          <img src="../images/jumbo-pp/jumbo-1.jpeg" alt="Stacked white PP woven bags" class="img-cover">
+        </div>
       </div>
     </div>
-    <div>
-      <h4>Products</h4>
-      <ul>
-        <li><a href="pp-woven-bags.html">PP Woven Bags</a></li>
-        <li><a href="small-bags.html">Small Bags</a></li>
-        <li><a href="jumbo-bags.html">Jumbo Bags</a></li>
-        <li><a href="dwc-pipes.html">DWC Pipes</a></li>
-        <li><a href="apollo-pipes.html">Apollo Pipes &amp; Fittings</a></li>
-        <li><a href="hdpe-pipes.html">HDPE Pipes</a></li>
-      </ul>
+  </section>
+
+  <!-- 2. ABOUT THE PRODUCT -->
+  <section>
+    <div class="container about-grid">
+      <div>
+        <span class="eyebrow">About the Product</span>
+        <h2 class="h2">Jumbo PP Bags – High Capacity, Built to Last</h2>
+        <p class="lead">Our jumbo bags (FIBC) are manufactured from high-strength polypropylene woven fabric and designed for bulk storage and transportation. Available in a wide range of capacities and configurations, they deliver reliable performance in the most demanding industrial applications.</p>
+        <div class="feats">
+          <div class="feat">
+            <div class="feat-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.8 6v5.4c0 4.4 3.1 8.1 7.2 9.6 4.1-1.5 7.2-5.2 7.2-9.6V6L12 3z"/><path d="m9.3 11.9 1.9 1.9 3.6-3.7"/></svg></div>
+            <div><h4>Heavy-Duty Construction</h4><p>High load bearing with reinforced seams.</p></div>
+          </div>
+          <div class="feat">
+            <div class="feat-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/><path d="M15 6h5v5"/></svg></div>
+            <div><h4>Space Saving</h4><p>Collapsible for easy storage and transport.</p></div>
+          </div>
+          <div class="feat">
+            <div class="feat-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M14 8.7a3 3 0 0 0-3-1.6 2.5 2.5 0 0 0 0 5c2.2 0 2.2 2.5 0 2.5-1 0-1.9-.5-2.3-1.3"/><path d="M12 7.2v9.6"/></svg></div>
+            <div><h4>Bulk Efficiency</h4><p>Lowers cost per kg for large volume handling.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="collage">
+        <div class="col tall"><img src="../images/jumbo-pp/jumbo-2.jpeg" alt="Stacked white PP bags"></div>
+        <div class="col"><img src="../images/jumbo-pp/jumbo-3.jpeg" alt="Close-up of PP bag stitching"></div>
+        <div class="col"><img src="../images/jumbo-pp/jumbo-4.jpeg" alt="Printed branded PP bags"></div>
+      </div>
     </div>
-    <div>
-      <h4>Company</h4>
-      <ul>
-        <li><a href="../index.html#about">About Us</a></li>
-        <li><a href="../index.html#technology">Technology</a></li>
-        <li><a href="../index.html#get-in-touch">Contact</a></li>
-      </ul>
+  </section>
+
+  <!-- 3. WHY CHOOSE -->
+  <section class="why">
+    <div class="container">
+      <span class="eyebrow">Why This Product</span>
+      <h2 class="h2">Why Choose Our Jumbo PP Bags</h2>
+      <div class="wgrid">
+        <div class="wcard">
+          <span class="wnum">01</span>
+          <div class="wic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.8 6v5.4c0 4.4 3.1 8.1 7.2 9.6 4.1-1.5 7.2-5.2 7.2-9.6V6L12 3z"/><path d="m9.3 11.9 1.9 1.9 3.6-3.7"/></svg></div>
+          <h4>Heavy Load Capacity</h4>
+          <p>High safe working load for bulk storage and transport.</p>
+        </div>
+        <div class="wcard">
+          <span class="wnum">02</span>
+          <div class="wic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/><path d="M15 6h5v5"/></svg></div>
+          <h4>Durable &amp; Reliable</h4>
+          <p>Reinforced stitching withstands rough industrial handling.</p>
+        </div>
+        <div class="wcard">
+          <span class="wnum">03</span>
+          <div class="wic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M14 8.7a3 3 0 0 0-3-1.6 2.5 2.5 0 0 0 0 5c2.2 0 2.2 2.5 0 2.5-1 0-1.9-.5-2.3-1.3"/><path d="M12 7.2v9.6"/></svg></div>
+          <h4>Space Saving</h4>
+          <p>Collapsible and stackable to reduce storage costs.</p>
+        </div>
+        <div class="wcard">
+          <span class="wnum">04</span>
+          <div class="wic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10.5 4.6 13 7 15.5"/><path d="M17 10.5l2.4 2.5L17 15.5"/><path d="M11 19.5l2-15"/></svg></div>
+          <h4>Eco Friendly</h4>
+          <p>Reusable and environmentally responsible.</p>
+        </div>
+        <div class="wcard">
+          <span class="wnum">05</span>
+          <div class="wic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17 17 3l4 4L7 21H3v-4z"/><path d="M4 20l4-4"/></svg></div>
+          <h4>Multiple Sizes</h4>
+          <p>Various capacities and configurations available.</p>
+        </div>
+        <div class="wcard">
+          <span class="wnum">06</span>
+          <div class="wic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m9 12 2 2 4-4"/><path d="M12 3 19.5 5.2v5c0 4.4-3.1 8.1-7.5 9.6-4.4-1.5-7.5-5.2-7.5-9.6v-5L12 3z"/></svg></div>
+          <h4>Consistent Quality</h4>
+          <p>Uniform strength and reliable performance.</p>
+        </div>
+      </div>
     </div>
-    <div>
-      <h4>Contact</h4>
-      <ul>
-        <li>avconbhagwati@gmail.com</li>
-        <li>+91 7303137035</li>
-        <li>Survey No 338/2/3, Pitreshwar Ware House,<br>Udyog Nagar, Palda, Indore, Indore</li>
-      </ul>
+  </section>
+
+  <!-- 4. APPLICATIONS -->
+  <section>
+    <div class="container">
+      <div class="apps-head">
+        <div>
+          <span class="eyebrow">Product Applications</span>
+          <h2 class="h2">Where Jumbo PP Bags Are Used</h2>
+        </div>
+        <p class="lead" style="margin:0;max-width:400px">Trusted for heavy-duty bulk packaging across industries.</p>
+      </div>
+      <div class="apps">
+        <div class="acard">
+          <img src="../images/jumbo-pp/jumbo-3.jpeg" alt="Chemicals - industrial and chemical materials">
+          <div class="abody">
+            <div class="aic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V3M12 8c-1.5 0-4 2-4 5.5V21h8v-7.5C16 10 13.5 8 12 8z"/><path d="M4 21h16"/></svg></div>
+            <h4>Chemicals</h4>
+            <p>Industrial &amp; chemical materials</p>
+          </div>
+        </div>
+        <div class="acard">
+          <img src="../images/jumbo-pp/jumbo-4.jpeg" alt="Agro products - grains, seeds and fertilizers">
+          <div class="abody">
+            <div class="aic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14l-1 13H6L5 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></div>
+            <h4>Agro Products</h4>
+            <p>Grains, seeds &amp; fertilizers</p>
+          </div>
+        </div>
+        <div class="acard">
+          <img src="../images/jumbo-pp/jumbo-1.jpeg" alt="Powders and granules - polymers, powders and pellets">
+          <div class="abody">
+            <div class="aic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3h4v6l4.5 6.5a2.5 2.5 0 0 1-2.1 3.9H7.6a2.5 2.5 0 0 1-2.1-3.9L10 9V3z"/><path d="M8 14h8"/></svg></div>
+            <h4>Powders &amp; Granules</h4>
+            <p>Polymers, powders &amp; pellets</p>
+          </div>
+        </div>
+        <div class="acard">
+          <img src="../images/jumbo-pp/jumbo-2.jpeg" alt="Cement and minerals - sand, cement and aggregates">
+          <div class="abody">
+            <div class="aic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 10V4M16 10V4M8 4h8M5 10h14v3c0 4-4 7-7 7s-7-3-7-7v-3z"/><path d="M12 13v4"/></svg></div>
+            <h4>Cement &amp; Minerals</h4>
+            <p>Sand, cement &amp; aggregates</p>
+          </div>
+        </div>
+        <div class="acard">
+          <img src="../images/jumbo-pp/jumbo-1.jpeg" alt="Construction - building and demolition materials">
+          <div class="abody">
+            <div class="aic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c3 0 4 1 4 3 3-2 6-2 8 0 0 3-1 4-3 4l3 6h2M12 8l3 6"/></svg></div>
+            <h4>Construction</h4>
+            <p>Building &amp; demolition materials</p>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="foot-bottom">© 2026 Bhagwati Avcon. All rights reserved.</div>
-</footer>
+  </section>
+
+  <!-- 5. TECHNICAL SPECIFICATIONS -->
+  <section class="specs">
+    <div class="container">
+      <span class="eyebrow">Product Details</span>
+      <h2 class="h2">Technical Specifications</h2>
+      <div class="stable">
+        <div class="scol">
+          <div class="srow"><span class="skey">Material</span><span class="sval">Polypropylene (PP) Woven Fabric</span></div>
+          <div class="srow"><span class="skey">Capacity</span><span class="sval">25 kg – 2000 kg (custom sizes available)</span></div>
+          <div class="srow"><span class="skey">Bag Type</span><span class="sval">U-Panel / Baffle / Circular</span></div>
+          <div class="srow"><span class="skey">Color Options</span><span class="sval">White, natural, custom colors</span></div>
+        </div>
+        <div class="scol">
+          <div class="srow"><span class="skey">Safety Factor</span><span class="sval">5:1 – 6:1 SWL (tested)</span></div>
+          <div class="srow"><span class="skey">Lamination</span><span class="sval">Optional for moisture protection</span></div>
+          <div class="srow"><span class="skey">Liner</span><span class="sval">PP / PE inner liner (optional)</span></div>
+          <div class="srow"><span class="skey">Packing</span><span class="sval">Bales / as per requirement</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. GALLERY -->
+  <section>
+    <div class="container">
+      <span class="eyebrow">Product Gallery</span>
+      <h2 class="h2">Explore Our Jumbo PP Bags</h2>
+      <div class="gallery">
+        <div class="gitem"><img src="../images/jumbo-pp/jumbo-5.jpeg" alt="Stacked white PP bags"></div>
+        <div class="gitem"><img src="../images/jumbo-pp/jumbo-4.jpeg" alt="Close-up woven PP fabric"></div>
+        <div class="gitem"><img src="../images/jumbo-pp/jumbo-3.jpeg" alt="Printed PP bag"></div>
+        <div class="gitem"><img src="../images/jumbo-pp/jumbo-2.jpeg" alt="Different bag sizes"></div>
+        <div class="gitem"><img src="../images/jumbo-pp/jumbo-1.jpeg" alt="Branded PP packaging"></div>
+        <div class="gitem"><img src="../images/jumbo-pp/jumbo-3.jpeg" alt="Finished packed bags"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. FINAL CTA -->
+  <section class="cta-wrap">
+    <div class="container">
+      <div class="cta">
+        <div class="cta-l">
+          <div class="cta-ic">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/></svg>
+          </div>
+          <div>
+            <h3>Need the Right Packaging Solution?</h3>
+            <p>Get in touch with our team for bulk orders, custom sizes and competitive pricing.</p>
+          </div>
+        </div>
+        <a class="btn" href="../index.html#get-in-touch">Request a Quote
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M2 8h11M9 3.5 13.5 8 9 12.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+<footer class="ba-footer"><div class="ba-footer-marquee"><div class="ba-footer-marquee-track"><div class="ba-footer-marquee-item">PP Woven Bags, DWC Pipes, Apollo Pipes &amp; HDPE Pipes — Manufacturing Quality Since 2016</div><div class="ba-footer-marquee-item">PP Woven Bags, DWC Pipes, Apollo Pipes &amp; HDPE Pipes — Manufacturing Quality Since 2016</div><div class="ba-footer-marquee-item">PP Woven Bags, DWC Pipes, Apollo Pipes &amp; HDPE Pipes — Manufacturing Quality Since 2016</div><div class="ba-footer-marquee-item">PP Woven Bags, DWC Pipes, Apollo Pipes &amp; HDPE Pipes — Manufacturing Quality Since 2016</div></div></div><div class="ba-footer-content"><div class="ba-footer-grid"><div class="ba-footer-col ba-footer-contact"><div class="ba-footer-label">Contact</div><div class="ba-footer-text">Bhagwati Avcon<br>Survey No 338/2/3, Pitreshwar Ware House,<br>Udyog Nagar, Pitreshwar Warehouse and Agro Services,<br>Palda, Indore, Indore</div><div class="ba-footer-sub-links"><a href="tel:+917303137035" class="ba-footer-link">+91 73031 37035 (Pranjal)</a><a href="tel:+919407166690" class="ba-footer-link">+91 94071 66690 (Mr. Praveen Sureka)</a><a href="mailto:avconbhagwati@gmail.com" class="ba-footer-link">avconbhagwati@gmail.com</a></div></div><div class="ba-footer-col"><div class="ba-footer-label">Products</div><div class="ba-footer-links"><a href="hdpe-pipes.html" class="ba-footer-link">HDPE Pipes</a><a href="dwc-pipes.html" class="ba-footer-link">DWC Pipes</a><a href="apollo-pipes.html" class="ba-footer-link">Apollo Pipes &amp; Fittings</a><a href="jumbo-bags.html" class="ba-footer-link">Jumbo Bags</a><a href="small-bags.html" class="ba-footer-link">Small Bags</a></div></div><div class="ba-footer-col"><div class="ba-footer-label">Quick Links</div><div class="ba-footer-links"><a href="../index.html" class="ba-footer-link">Home</a><a href="../index.html#product-specs" class="ba-footer-link">Products</a><a href="../index.html#about" class="ba-footer-link">About Us</a><a href="../index.html#get-in-touch" class="ba-footer-link">Contact</a></div></div><div class="ba-footer-col ba-footer-newsletter"><div class="ba-footer-label">Subscribe</div><form class="ba-footer-form"><input type="email" placeholder="Your email address" class="ba-footer-input" required><button type="submit" class="ba-footer-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h10M8 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></form><div class="ba-footer-note">Get updates on new products &amp; offers</div></div></div></div><div class="ba-footer-bottom"><div class="ba-footer-bottom-inner"><div class="ba-footer-brand">Bhagwati Avcon</div></div><div class="ba-footer-bottom-inner"><div class="ba-footer-social"><a href="https://www.facebook.com/profile.php?id=61584676199506" class="ba-footer-social-link" aria-label="Facebook"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12S0 5.446 0 12.073c0 5.989 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a><a href="https://www.instagram.com/bhagwati_avcon?igsi=azlocm9pM3N4NHZh" class="ba-footer-social-link" aria-label="Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a><a href="https://www.linkedin.com/company/bhagwati-avco/" class="ba-footer-social-link" aria-label="LinkedIn"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg></a><a href="#" class="ba-footer-social-link" aria-label="X"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a><a href="https://wa.me/917303137035" class="ba-footer-social-link" aria-label="WhatsApp"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a></div><div class="ba-footer-copy">&copy; 2026 Bhagwati Avcon. All rights reserved.</div></div></div></footer>
 
 </body>
 </html>
