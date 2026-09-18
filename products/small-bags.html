@@ -25,12 +25,12 @@
     color:var(--ink);background:var(--bg);line-height:1.6;
     -webkit-font-smoothing:antialiased;
   }
-  img{display:block;max-width:100%}
+  img{display:block;max-width:100%}body{overflow-x:hidden}
   .container{max-width:none;width:100%;margin:0;padding:0 clamp(20px,3vw,44px)}
   section{padding:76px 0}
 
   /* brand strip */
-  .brand{display:flex;align-items:center;gap:12px;padding:26px 0 8px}
+  .brand{display:flex;align-items:center;gap:12px;padding:26px 0 8px}.brand-link{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
   .brand img{width:34px;height:34px;border-radius:9px;object-fit:cover}
   .brand-name{font-size:15px;font-weight:700;letter-spacing:-.01em}
   .brand-meta{margin-left:auto;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2)}
@@ -181,8 +181,10 @@
   <!-- brand strip -->
   <div class="container">
     <div class="brand">
-      <img src="../images/icon.jpeg" alt="Bhagwati Avcon logo">
-      <span class="brand-name">Bhagwati Avcon</span>
+      <a class="brand-link" href="../index.html">
+        <img src="../images/icon.jpeg" alt="Bhagwati Avcon logo">
+        <span class="brand-name">Bhagwati Avcon</span>
+      </a>
       <span class="brand-meta">Small PP Bags</span>
     </div>
   </div>
