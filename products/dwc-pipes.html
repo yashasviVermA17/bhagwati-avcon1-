@@ -107,10 +107,10 @@
     position:relative;border-radius:16px;overflow:hidden;min-height:300px;box-shadow:var(--shadow);border:1px solid var(--line);
     display:flex;flex-direction:column;justify-content:flex-end;
   }
-  .acard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .acard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .6s}
   .acard:hover img{transform:scale(1.05)}
-  .acard::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,12,14,0) 30%,rgba(10,12,14,.8))}
-  .abody{position:relative;z-index:2;padding:18px}
+  .acard::after{display:none}
+  .abody{display:none}
   .aic{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;margin-bottom:12px}
   .abody h4{font-size:15px;font-weight:600;letter-spacing:-.01em;color:#fff}
   .abody p{font-size:12.5px;color:rgba(255,255,255,.82);margin-top:4px}
@@ -294,7 +294,7 @@
       </div>
       <div class="apps">
         <div class="acard">
-          <img src="../images/dwc1.jpeg" alt="Underground cabling - electrical and telecom cables">
+          <img src="../images/dwc-pp/usage-1.jpeg" alt="Underground cabling - electrical and telecom cables">
           <div class="abody">
             <div class="aic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V3M12 8c-1.5 0-4 2-4 5.5V21h8v-7.5C16 10 13.5 8 12 8z"/><path d="M4 21h16"/></svg></div>
             <h4>Underground Cabling</h4>
@@ -302,7 +302,7 @@
           </div>
         </div>
         <div class="acard">
-          <img src="../images/dwc2.jpeg" alt="Cable protection for network and power lines">
+          <img src="../images/dwc-pp/usage-2.jpeg" alt="Cable protection for network and power lines">
           <div class="abody">
             <div class="aic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2m0 14v2m8-9h-2M6 12H4m12.7-6.7-1.4 1.4M6.7 17.3l-1.4 1.4m0-13.4 1.4 1.4m11 11-1.4 1.4M5 12a7 7 0 1 0 14 0 7 7 0 0 0-14 0z"/></svg></div>
             <h4>Cable Protection</h4>
@@ -310,7 +310,7 @@
           </div>
         </div>
         <div class="acard">
-          <img src="../images/dwc3.jpeg" alt="Drainage systems for storm water and effluent">
+          <img src="../images/dwc-pp/usage-3.jpeg" alt="Drainage systems for storm water and effluent">
           <div class="abody">
             <div class="aic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18v8H3z"/><path d="M5 10a7 7 0 0 1 14 0"/></svg></div>
             <h4>Drainage</h4>
@@ -318,7 +318,7 @@
           </div>
         </div>
         <div class="acard">
-          <img src="../images/dwc4.jpeg" alt="Infrastructure projects - roads and highways">
+          <img src="../images/dwc-pp/usage-4.jpeg" alt="Infrastructure projects - roads and highways">
           <div class="abody">
             <div class="aic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V10l8-6 8 6v11"/><path d="M9 21v-6h6v6"/></svg></div>
             <h4>Infrastructure</h4>
@@ -326,7 +326,7 @@
           </div>
         </div>
         <div class="acard">
-          <img src="../images/dwc1.jpeg" alt="Lightweight pipes for easy laying">
+          <img src="../images/dwc-pp/usage-5.jpeg" alt="Lightweight pipes for easy laying">
           <div class="abody">
             <div class="aic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m9 12 2 2 4-4"/><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"/></svg></div>
             <h4>Easy Laying</h4>
@@ -369,8 +369,8 @@
         <div class="gitem"><img src="../images/dwc2.jpeg" alt="Stacked DWC pipes"></div>
         <div class="gitem"><img src="../images/dwc3.jpeg" alt="Corrugated outer wall detail"></div>
         <div class="gitem"><img src="../images/dwc4.jpeg" alt="DWC pipe sections"></div>
-        <div class="gitem"><img src="../images/dwc2.jpeg" alt="DWC pipes in production"></div>
-        <div class="gitem"><img src="../images/dwc1.jpeg" alt="Ready DWC pipes"></div>
+        <div class="gitem"><img src="../images/dwc-pp/gallery-4.jpeg" alt="DWC pipes in production"></div>
+        <div class="gitem"><img src="../images/dwc-pp/gallery-9.jpeg" alt="Ready DWC pipes"></div>
       </div>
     </div>
   </section>
